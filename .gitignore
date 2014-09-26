@@ -1,0 +1,11 @@
+/*
+wp-content/*
+wp-content/plugins/*
+wp-content/themes/*
+
+!.gitignore
+!wp-content/
+!wp-content/plugins/
+!wp-content/plugins/gravityforms-to-custom-post-type/
+!wp-content/themes/mihp/
+!wp-content/themes/
