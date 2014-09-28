@@ -7,19 +7,26 @@
  * Author: arraysoftlab
  */
 
-$current_form_id = 1;
+$current_form_id = 3;
+$current_post_type = 'programs';
+$agency_field_id = 4;
 add_action("gform_after_submission_$current_form_id", "after_submission", 10, 2);
 function after_submission($entry, $form) {
+    global $current_post_type, $agency_field_id;
     $post_id = wp_insert_post(
         array(
             'post_title' => wp_strip_all_tags($entry[1]),
             'post_content' => '',
-            'post_type' => 'programs',
+            'post_type' => $current_post_type,
             'post_status' => 'draft'
         )
     );
     foreach($form['fields'] as $field) {
-        add_post_meta($post_id, $field['label'], $entry[$field['id']], true);
+        if($field['id'] == $agency_field_id) {
+            wp_set_post_terms($post_id, $entry[$field['id']], 'agency');
+        } else {
+            add_post_meta($post_id, $field['label'], $entry[$field['id']], true);
+        }
     }
 }
 
@@ -30,11 +37,12 @@ function gf_post_meta_boxes_setup() {
 }
 
 function gf_add_post_meta_boxes() {
+    global $current_post_type;
     add_meta_box(
         'program-profile',
         'Submitted Information',
         'gf_post_class_meta_box',
-        'programs',
+        $current_post_type,
         'normal',
         'default'
     );
@@ -54,7 +62,7 @@ function gf_post_class_meta_box($post) {
         #program-profile .inside label,
         #program-profile .inside span {
             display: inline-block;
-            padding: 5px 0px;
+            padding: 5px 0;
         }
         #program-profile .inside label {
             width: 20%;
@@ -66,21 +74,3 @@ function gf_post_class_meta_box($post) {
     </style>
     <?php
 }
-
-/*add_filter("gform_pre_render_$current_form_id", "lead_organization");
-function lead_organization($form){
-    foreach($form['fields'] as $field){
-        if($field['label'] != 'Lead Organization')
-            continue;
-        // you can add additional parameters here to alter the posts that are retreieved
-        // more info: http://codex.wordpress.org/Template_Tags/get_posts
-        $posts = get_posts('numberposts=-1&post_status=publish');
-        // update 'Select a Post' to whatever you'd like the instructive option to be
-        $choices = array();
-        foreach($posts as $post){
-            $choices[] = array('text' => $post->post_title, 'value' => $post->post_title);
-        }
-        $field['choices'] = get_terms('lead-organization');
-    }
-    return $form;
-}*/

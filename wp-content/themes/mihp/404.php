@@ -1,5 +1,10 @@
 <?php get_header(); ?>
 
+ <?php wp_nav_menu( array('theme_location' => 'menu', 'menu' => 'Top Menu') ); ?>
+
+<div class="container animated  fadeInUp">
+     <div class="row center">
+
 <h1>Page Not Found</h1>
 <p>
   <strong>Did you type the URL?</strong><br />
@@ -13,6 +18,6 @@
   <strong>Did you follow a link from another site?</strong><br />
   Links from other sites can sometimes be outdated or misspelled.
 </p>
+     </div></div>
 
-<?php get_sidebar(); ?>
 <?php get_footer(); ?>

@@ -1,21 +1,12 @@
 <?php get_header(); ?>
 <div class="container animated  fadeInUp">
      <div class="row">
+        <?php wp_nav_menu( array('theme_location' => 'menu', 'menu' => 'Top Menu') ); ?>
+
 <h1>
-  <?php if( is_author() ): ?>
-    Author: <?php echo $author_name ?>
-  <?php elseif( is_category() ): ?>
-    <?php single_cat_title(); ?>
-  <?php elseif( is_tag() ): ?>
-    Tag: <?php single_tag_title(); ?>
-  <?php elseif( is_year() ): ?>
-    Archive for <?php the_time('Y'); ?>
-  <?php elseif( is_month() ): ?>
-    Archive for <?php the_time('F Y'); ?>
-  <?php else: ?>
-    Archive
-  <?php endif; ?>
+Program Profiles
 </h1>
+<?php echo do_shortcode('[tax id="agency" before="Agencies: " separator=" | " after=" "]'); ?>
 
 <?php if ( have_posts() ): ?>
   <?php while ( have_posts() ) : the_post(); ?>
@@ -37,6 +28,8 @@
     <?php previous_posts_link( __( 'Newer posts &rarr;' ) ); ?>
   </div>
 <?php endif; ?>
+
+
 
      </div>
 </div>

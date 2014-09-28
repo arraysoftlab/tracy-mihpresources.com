@@ -322,17 +322,17 @@ a:before, a:after {
 \*------------------------------------*/
 
 
-.menu ul {
+.menu-top-menu-container ul {
 text-align: center;
 	list-style: none;
 	}
 
-.menu ul li {
+.menu-top-menu-container ul li {
 	display: inline-block;
 	}
 
 
-.menu li a {
+.menu-top-menu-container li a {
 	display: block;
 	padding: 10px 15px;
 	}
